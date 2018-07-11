@@ -1,0 +1,5 @@
+spring:
+  data:
+    elasticsearch:
+      cluster-name: MYCLOUSTER
+      cluster-nodes: localhost:9090
