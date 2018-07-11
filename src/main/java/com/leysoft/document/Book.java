@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.leysoft.domain.Author;
 
-@Document(indexName = "", type = "", replicas = 2, shards = 6)
+@Document(indexName = "book.i", type = "book", replicas = 2, shards = 6)
 public class Book {
 	
 	@Id
