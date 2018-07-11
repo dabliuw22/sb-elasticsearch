@@ -26,8 +26,8 @@ public class BookServiceImp implements BookService {
 	}
 
 	@Override
-	public List<Book> findAll() {
-		return (List<Book>) bookRepository.findAll();
+	public Iterable<Book> findAll() {
+		return bookRepository.findAll();
 	}
 
 	@Override
