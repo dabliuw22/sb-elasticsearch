@@ -20,6 +20,11 @@ public class ElasticsearchConfiguration {
 	private String clusterNodes;
 	
 	@Bean
+	public TransportClientFactoryBean transportClientFactoryBean() {
+		return new TransportClientFactoryBean();
+	}
+	
+	@Bean
 	public Client client(TransportClientFactoryBean clientFactory) throws Exception {
 		clientFactory.setClusterName(clusterName);
 		clientFactory.setClusterNodes(clusterNodes);
