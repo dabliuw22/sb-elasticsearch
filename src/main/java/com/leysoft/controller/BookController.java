@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leysoft.document.Book;
 import com.leysoft.service.inter.BookService;
-import com.leysoft.util.Util;
 
 @RestController
 @RequestMapping(value = {"/book"})
@@ -28,10 +27,20 @@ public class BookController {
 		return ResponseEntity.ok(book);
 	}
 	
+	@GetMapping(value = {"/name/{name}"})
+	public ResponseEntity<List<Book>> allByName(@PathVariable(name = "name") String name) {
+		return ResponseEntity.ok(bookService.findByName(name));
+	}
+	
+	@GetMapping(value = {"/author/{name}"})
+	public ResponseEntity<List<Book>> allByAuthor(@PathVariable(name = "name") String name) {
+		return ResponseEntity.ok(bookService.findByAuthorName(name));
+	}
+	
 	@GetMapping(value = {""})
 	public ResponseEntity<List<Book>> all() {
-		Iterable<Book> books = bookService.findAll();
-		return ResponseEntity.ok(Util.iterableToList(books));
+		List<Book> books = bookService.findAll();
+		return ResponseEntity.ok(books);
 	}
 	
 	@PostMapping(value = {"/add"})

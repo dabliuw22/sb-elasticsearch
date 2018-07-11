@@ -10,7 +10,9 @@ public interface BookService {
 	
 	public Book findById(String id);
 	
-	public Iterable<Book> findAll();
+	public List<Book> findAll();
+	
+	public List<Book> findByName(String name);
 	
 	public List<Book> findByAuthorName(String authorName);
 	

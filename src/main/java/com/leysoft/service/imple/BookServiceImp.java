@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.leysoft.document.Book;
 import com.leysoft.respository.BookRepository;
 import com.leysoft.service.inter.BookService;
+import com.leysoft.util.Util;
 
 @Service
 public class BookServiceImp implements BookService {
@@ -26,13 +27,18 @@ public class BookServiceImp implements BookService {
 	}
 
 	@Override
-	public Iterable<Book> findAll() {
-		return bookRepository.findAll();
+	public List<Book> findAll() {
+		return Util.iterableToList(bookRepository.findAll());
 	}
 
 	@Override
+	public List<Book> findByName(String name) {
+		return Util.iterableToList(bookRepository.findByNameCustom(name));
+	}
+	
+	@Override
 	public List<Book> findByAuthorName(String authorName) {
-		return bookRepository.findByAuthorName(authorName);
+		return Util.iterableToList(bookRepository.findByAuthorName(authorName));
 	}
 
 	@Override
