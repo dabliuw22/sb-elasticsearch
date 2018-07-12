@@ -1,8 +1,8 @@
 spring:
   data:
     elasticsearch:
-      cluster-name: mycluster
-      cluster-nodes: localhost:9200
+      cluster-name: my-application
+      cluster-nodes: localhost:9300
       properties:
         transport:
           tcp:
