@@ -1,6 +1,9 @@
 package com.leysoft.document;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -13,10 +16,14 @@ public class Book {
 	@Id
 	private String id;
 	
+	@Field(type = FieldType.Text, index = true)
 	private String name;
 	
 	@Field(type = FieldType.Nested)
 	private Author author;
+	
+	@Field(type = FieldType.Date, format = DateFormat.basic_date)
+	private Date published;
 
 	public String getId() {
 		return id;
