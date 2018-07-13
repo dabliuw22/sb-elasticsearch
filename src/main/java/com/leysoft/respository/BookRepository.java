@@ -19,6 +19,7 @@ public interface BookRepository extends ElasticsearchCrudRepository<Book, String
     public List<Book> findAllCustom();
 
     @Query(
-            value = "{\"nested\": {\"path\": \"author\", \"query\": {\"bool\": {\"must\": [{\"match\": {\"author.name\": \"?0\"}}]}}}}")
+            value = "{\"nested\": {\"path\": \"author\", \"query\": {\"bool\": "
+                    + "{\"must\": [{\"match\": {\"author.name\": \"?0\"}}]}}}}")
     public List<Book> findByAuthorName(String name);
 }
