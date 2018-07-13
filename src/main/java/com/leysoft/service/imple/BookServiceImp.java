@@ -1,5 +1,6 @@
 package com.leysoft.service.imple;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,15 @@ public class BookServiceImp implements BookService {
 	@Override
 	public List<Book> findByAuthorName(String authorName) {
 		return bookRepository.findByAuthorName(authorName);
+	}
+	
+	@Override
+	public List<Book> findByPublishedBetween(Date gte, Date lte) {
+		return bookRepository.findByPublishedBetween(Util.dateToString(gte), Util.dateToString(lte));
+	}
+	
+	public List<Book> findByPriceAndDescription(Double price, String description) {
+		return bookRepository.findByPriceAndDescription(price, description);
 	}
 
 	@Override

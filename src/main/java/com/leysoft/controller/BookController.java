@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leysoft.document.Book;
+import com.leysoft.dto.DateBetweenRequest;
+import com.leysoft.dto.PriceAndDescriptionRequest;
 import com.leysoft.service.inter.BookService;
 
 @RestController
@@ -35,6 +37,16 @@ public class BookController {
 	@GetMapping(value = {"/author/{name}"})
 	public ResponseEntity<List<Book>> allByAuthor(@PathVariable(name = "name") String name) {
 		return ResponseEntity.ok(bookService.findByAuthorName(name));
+	}
+	
+	@PostMapping(value = {"/between"})
+	public ResponseEntity<List<Book>> allBetween(@RequestBody DateBetweenRequest request) {
+		return ResponseEntity.ok(bookService.findByPublishedBetween(request.getGte(), request.getLte()));
+	}
+	
+	@PostMapping(value = "/price/description")
+	public ResponseEntity<List<Book>> allByPriceAndDescription(@RequestBody PriceAndDescriptionRequest request) {
+		return ResponseEntity.ok(bookService.findByPriceAndDescription(request.getPrice(), request.getDescription()));
 	}
 	
 	@GetMapping(value = {""})
