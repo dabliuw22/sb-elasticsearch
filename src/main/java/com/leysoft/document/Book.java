@@ -9,10 +9,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.leysoft.domain.Author;
 
 @Document(
-        indexName = "book.i",
+        indexName = ".book",
         type = "book",
         replicas = 2,
         shards = 6)
@@ -32,7 +33,11 @@ public class Book {
 
     @Field(
             type = FieldType.Date,
-            format = DateFormat.basic_date)
+            format = DateFormat.custom,
+            pattern = "yyyy-MM-dd")
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd")
     private Date published;
 
     public String getId() {
