@@ -1,3 +1,4 @@
+
 package com.leysoft.dto;
 
 import java.util.Date;
@@ -5,30 +6,30 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DateBetweenRequest {
-	
-	@JsonFormat(
+
+    @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd")
-	private Date lte;
-	
-	@JsonFormat(
+    private Date lte;
+
+    @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd")
-	private Date gte;
+    private Date gte;
 
-	public Date getLte() {
-		return lte;
-	}
+    public Date getLte() {
+        return lte;
+    }
 
-	public void setLte(Date lte) {
-		this.lte = lte;
-	}
+    public void setLte(Date lte) {
+        this.lte = lte;
+    }
 
-	public Date getGte() {
-		return gte;
-	}
+    public Date getGte() {
+        return gte;
+    }
 
-	public void setGte(Date gte) {
-		this.gte = gte;
-	}
+    public void setGte(Date gte) {
+        this.gte = gte;
+    }
 }

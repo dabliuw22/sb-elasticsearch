@@ -41,18 +41,18 @@ public class Book {
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd")
     private Date published;
-    
+
     @Field(
             type = FieldType.Double)
     private Double price;
-    
+
     private Editorial editorial;
-    
+
     @Field(
             type = FieldType.Text,
             index = true)
     private String type;
-    
+
     @Field(
             type = FieldType.Text)
     private String description;
@@ -89,35 +89,35 @@ public class Book {
         this.published = published;
     }
 
-	public Double getPrice() {
-		return price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public Editorial getEditorial() {
-		return editorial;
-	}
+    public Editorial getEditorial() {
+        return editorial;
+    }
 
-	public void setEditorial(Editorial editorial) {
-		this.editorial = editorial;
-	}
+    public void setEditorial(Editorial editorial) {
+        this.editorial = editorial;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

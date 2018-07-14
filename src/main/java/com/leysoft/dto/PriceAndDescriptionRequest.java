@@ -1,24 +1,25 @@
+
 package com.leysoft.dto;
 
 public class PriceAndDescriptionRequest {
-	
-	private Double price;
-	
-	private String description;
 
-	public Double getPrice() {
-		return price;
-	}
+    private Double price;
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    private String description;
 
-	public String getDescription() {
-		return description;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
