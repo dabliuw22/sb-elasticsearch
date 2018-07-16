@@ -15,6 +15,8 @@ public interface BookService {
     public List<Book> findAll();
 
     public List<Book> findByName(String name);
+    
+    public List<Book> findByEditorialName(String name);
 
     public List<Book> findByAuthorName(String authorName);
 

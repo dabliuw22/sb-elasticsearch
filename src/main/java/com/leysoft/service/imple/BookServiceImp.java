@@ -41,6 +41,11 @@ public class BookServiceImp implements BookService {
     public List<Book> findByName(String name) {
         return bookRepository.findByNameCustom(name);
     }
+    
+    @Override
+    public List<Book> findByEditorialName(String name) {
+    	return bookRepository.findByEditorialName(name);
+    }
 
     @Override
     public List<Book> findByAuthorName(String authorName) {

@@ -37,6 +37,13 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
                 .withQuery(matchQuery("name", name).operator(Operator.AND)).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
     }
+    
+    @Override
+    public List<Book> findByEditorialName(String name) {
+    	SearchQuery query = new NativeSearchQueryBuilder()
+    			.withQuery(matchQuery("editorial.name", name)).build();
+    	return elasticsearchTemplate.queryForList(query, Book.class);
+    }
 
     @Override
     public List<Book> findByAuthorName(String name) {

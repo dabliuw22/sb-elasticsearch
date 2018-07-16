@@ -8,6 +8,8 @@ import com.leysoft.document.Book;
 public interface CustomBookRepository {
 
     public List<Book> findByName(String name);
+    
+    public List<Book> findByEditorialName(String name);
 
     public List<Book> findByAuthorName(String name);
 
