@@ -19,6 +19,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilterBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.data.elasticsearch.core.query.SourceFilter;
 import org.springframework.stereotype.Repository;
 
 import com.leysoft.document.Book;
@@ -60,9 +61,9 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
 
     @Override
     public List<String> findByNameSourceName(String field, String name) {
+    	SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(field).build();
         SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery(field, name))
-                .withSourceFilter(new FetchSourceFilterBuilder().withIncludes(field).build())
-        		.build();
+                .withSourceFilter(sourceFilter).build();
         return getResultBySource(field, query);
     }
     
