@@ -67,7 +67,7 @@ public class BookController {
 
     @PostMapping(
             value = {
-            		"/price/description"
+            	"/price/description"
             })
     public ResponseEntity<List<Book>>
             allByPriceAndDescription(@RequestBody PriceAndDescriptionRequest request) {
@@ -95,7 +95,7 @@ public class BookController {
     
     @GetMapping(
     		value = {
-    				"/editorial/name/{name}"
+    			"/editorial/name/{name}"
     		})
     public ResponseEntity<List<Book>> getByEditorialName(@PathVariable("name") String name) {
     	return ResponseEntity.ok(bookService.findByEditorialName(name));
@@ -103,7 +103,7 @@ public class BookController {
     
     @GetMapping(
     		value = {
-    				"/price/gte/{price}"
+    			"/price/gte/{price}"
     		})
     public ResponseEntity<List<Book>> getByPriceGteFilter(@PathVariable(name = "price") Double price) {
     	return ResponseEntity.ok(bookService.findByPriceGteFilter(price));
