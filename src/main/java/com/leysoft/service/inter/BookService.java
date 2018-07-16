@@ -21,6 +21,8 @@ public interface BookService {
     public List<Book> findByPublishedBetween(Date gte, Date lte);
 
     public List<Book> findByPriceAndDescription(Double price, String description);
+    
+    public List<Book> findByPriceGteFilter(Double price);
 
     public List<String> findByNameSourceName(String field, String name);
 

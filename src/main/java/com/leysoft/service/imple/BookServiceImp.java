@@ -57,6 +57,11 @@ public class BookServiceImp implements BookService {
     public List<Book> findByPriceAndDescription(Double price, String description) {
         return bookRepository.findByPriceAndDescription(price, description);
     }
+    
+    @Override
+    public List<Book> findByPriceGteFilter(Double price) {
+    	return customBookRepository.findByPriceGteFilter(price);
+    }
 
     @Override
     public List<String> findByNameSourceName(String field, String name) {
