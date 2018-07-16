@@ -4,6 +4,7 @@ package com.leysoft.respository.inter;
 import java.util.List;
 
 import com.leysoft.document.Book;
+import com.leysoft.dto.SourceResponse;
 
 public interface CustomBookRepository {
 
@@ -18,4 +19,6 @@ public interface CustomBookRepository {
     public List<Book> findByPriceGteFilter(Double price);
 
     public List<String> findByNameSourceName(String field, String name);
+    
+    public List<SourceResponse> findByNameSourceFields(String name, String... fields);
 }

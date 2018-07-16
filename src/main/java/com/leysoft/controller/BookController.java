@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leysoft.document.Book;
 import com.leysoft.dto.DateBetweenRequest;
 import com.leysoft.dto.PriceAndDescriptionRequest;
+import com.leysoft.dto.SourceResponse;
 import com.leysoft.service.inter.BookService;
 
 @RestController
@@ -111,5 +112,14 @@ public class BookController {
     public ResponseEntity<List<String>> getNameByName(@PathVariable(
             name = "name") String name) {
         return ResponseEntity.ok(bookService.findByNameSourceName("name", name));
+    }
+    
+    @GetMapping(
+            value = {
+                "/source/name/{name}"
+            })
+    public ResponseEntity<List<SourceResponse>> getSourceByName(@PathVariable(
+            name = "name") String name) {
+        return ResponseEntity.ok(bookService.findByNameSourceFields(name, "name", "price", "type"));
     }
 }

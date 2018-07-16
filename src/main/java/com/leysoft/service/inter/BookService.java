@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.leysoft.document.Book;
+import com.leysoft.dto.SourceResponse;
 
 public interface BookService {
 
@@ -27,6 +28,8 @@ public interface BookService {
     public List<Book> findByPriceGteFilter(Double price);
 
     public List<String> findByNameSourceName(String field, String name);
+    
+    public List<SourceResponse> findByNameSourceFields(String name, String... fields);
 
     public boolean update(Book book);
 

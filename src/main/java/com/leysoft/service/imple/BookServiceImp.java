@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.leysoft.document.Book;
+import com.leysoft.dto.SourceResponse;
 import com.leysoft.respository.inter.BookRepository;
 import com.leysoft.respository.inter.CustomBookRepository;
 import com.leysoft.service.inter.BookService;
@@ -71,6 +72,11 @@ public class BookServiceImp implements BookService {
     @Override
     public List<String> findByNameSourceName(String field, String name) {
         return customBookRepository.findByNameSourceName(field, name);
+    }
+    
+    @Override
+    public List<SourceResponse> findByNameSourceFields(String name, String... fields) {
+    	return customBookRepository.findByNameSourceFields(name, fields);
     }
 
     @Override

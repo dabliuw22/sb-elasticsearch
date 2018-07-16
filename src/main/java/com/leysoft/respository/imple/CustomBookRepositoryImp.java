@@ -9,6 +9,7 @@ import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.Operator;
@@ -23,6 +24,7 @@ import org.springframework.data.elasticsearch.core.query.SourceFilter;
 import org.springframework.stereotype.Repository;
 
 import com.leysoft.document.Book;
+import com.leysoft.dto.SourceResponse;
 import com.leysoft.respository.inter.CustomBookRepository;
 
 @Repository
@@ -74,6 +76,14 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
         return getResultBySource(field, query);
     }
     
+    @Override
+    public List<SourceResponse> findByNameSourceFields(String name, String... fields) {
+    	SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(fields).build();
+    	SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery("name", name))
+    			.withSourceFilter(sourceFilter).build();
+    	return getResultBySource(query, fields);
+    }
+    
     private List<String> getResultBySource(String field, SearchQuery query) {
     	return elasticsearchTemplate.query(query, response -> {
         	List<String> resultQuery = new ArrayList<>();
@@ -81,5 +91,21 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
         	hits.forEach(hit -> resultQuery.add((String) hit.getSource().get(field)));
         	return resultQuery;
         });
+    }
+    
+    private List<SourceResponse> getResultBySource(SearchQuery query, String... fields) {
+    	return elasticsearchTemplate.query(query, response -> {
+    		List<SourceResponse> resultQuery = new ArrayList<>();
+    		SearchHits hits = response.getHits();
+    		hits.forEach(hit -> {
+    			SourceResponse sourceResponse = new SourceResponse();
+    			Map<String, Object> map = hit.getSource();
+    			sourceResponse.setName((String) map.get(fields[0]));
+    			sourceResponse.setPrice((Double) map.get(fields[1]));
+    			sourceResponse.setType((String) map.get(fields[2]));
+    			resultQuery.add(sourceResponse);
+    		});
+    		return resultQuery;
+    	});
     }
 }
