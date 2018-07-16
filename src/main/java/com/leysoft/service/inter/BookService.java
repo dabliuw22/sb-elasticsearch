@@ -22,7 +22,7 @@ public interface BookService {
 
     public List<Book> findByPriceAndDescription(Double price, String description);
 
-    public String findByNameSourceName(String name);
+    public List<String> findByNameSourceName(String field, String name);
 
     public boolean update(Book book);
 

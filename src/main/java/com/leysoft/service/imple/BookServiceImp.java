@@ -59,8 +59,8 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
-    public String findByNameSourceName(String name) {
-        return customBookRepository.findByNameSourceName(name);
+    public List<String> findByNameSourceName(String field, String name) {
+        return customBookRepository.findByNameSourceName(field, name);
     }
 
     @Override

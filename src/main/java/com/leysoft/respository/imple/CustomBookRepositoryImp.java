@@ -6,13 +6,13 @@ import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilterBuilder;
@@ -25,8 +25,6 @@ import com.leysoft.respository.inter.CustomBookRepository;
 
 @Repository
 public class CustomBookRepositoryImp implements CustomBookRepository {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomBookRepositoryImp.class);
 
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
@@ -53,12 +51,19 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
     }
 
     @Override
-    public String findByNameSourceName(String name) {
-        SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery("name", name))
-                .withSourceFilter(new FetchSourceFilterBuilder().withIncludes("name").build())
-                .build();
-        List<String> result = elasticsearchTemplate.queryForList(query, String.class);
-        result.forEach(r -> LOGGER.info("ressult {}", r));
-        return result.get(0);
+    public List<String> findByNameSourceName(String field, String name) {
+        SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery(field, name))
+                .withSourceFilter(new FetchSourceFilterBuilder().withIncludes(field).build())
+        		.build();
+        return getResultBySource(field, query);
+    }
+    
+    private List<String> getResultBySource(String field, SearchQuery query) {
+    	return elasticsearchTemplate.query(query, response -> {
+        	List<String> resultQuery = new ArrayList<>();
+        	SearchHits hits = response.getHits();
+        	hits.forEach(hit -> resultQuery.add((String) hit.getSource().get(field)));
+        	return resultQuery;
+        });
     }
 }

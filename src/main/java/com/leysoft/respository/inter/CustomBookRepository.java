@@ -13,5 +13,5 @@ public interface CustomBookRepository {
 
     public List<Book> findAll();
 
-    public String findByNameSourceName(String name);
+    public List<String> findByNameSourceName(String field, String name);
 }

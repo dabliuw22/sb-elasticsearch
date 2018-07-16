@@ -94,8 +94,8 @@ public class BookController {
             value = {
                 "/custom/name/{name}"
             })
-    public ResponseEntity<String> getNameByName(@PathVariable(
+    public ResponseEntity<List<String>> getNameByName(@PathVariable(
             name = "name") String name) {
-        return ResponseEntity.ok(bookService.findByNameSourceName(name));
+        return ResponseEntity.ok(bookService.findByNameSourceName("name", name));
     }
 }
