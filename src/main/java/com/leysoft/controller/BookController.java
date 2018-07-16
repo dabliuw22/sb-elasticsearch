@@ -89,6 +89,13 @@ public class BookController {
         Book newBook = bookService.save(book);
         return ResponseEntity.ok(newBook);
     }
+    
+    @GetMapping(
+    		value = {
+    				"/price/gte/{price}"})
+    public ResponseEntity<List<Book>> getByPriceGteFilter(@PathVariable(name = "price") Double price) {
+    	return ResponseEntity.ok(bookService.findByPriceGteFilter(price));
+    }
 
     @GetMapping(
             value = {
