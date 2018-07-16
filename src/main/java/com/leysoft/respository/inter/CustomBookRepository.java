@@ -12,6 +12,8 @@ public interface CustomBookRepository {
     public List<Book> findByAuthorName(String name);
 
     public List<Book> findAll();
+    
+    public List<Book> findByPriceGteFilter(Double price);
 
     public List<String> findByNameSourceName(String field, String name);
 }

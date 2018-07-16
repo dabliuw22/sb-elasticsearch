@@ -5,6 +5,7 @@ import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
+import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,9 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
 
     @Override
     public List<Book> findByAuthorName(String name) {
-        QueryBuilder queryBuilder = nestedQuery("authors",
+        QueryBuilder nestedQuery = nestedQuery("authors",
                 boolQuery().must(matchQuery("authors.name", name)), ScoreMode.Avg);
-        SearchQuery query = new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
+        SearchQuery query = new NativeSearchQueryBuilder().withQuery(nestedQuery).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
     }
 
@@ -48,6 +49,13 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
     public List<Book> findAll() {
         SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
+    }
+    
+    @Override
+    public List<Book> findByPriceGteFilter(Double price) {
+    	QueryBuilder filterQuery = rangeQuery("price").gte(price);
+    	SearchQuery query = new NativeSearchQueryBuilder().withQuery(boolQuery().filter(filterQuery)).build();
+    	return elasticsearchTemplate.queryForList(query, Book.class);
     }
 
     @Override
