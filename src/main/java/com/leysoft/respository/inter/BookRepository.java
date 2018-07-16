@@ -1,5 +1,5 @@
 
-package com.leysoft.respository;
+package com.leysoft.respository.inter;
 
 import java.util.List;
 

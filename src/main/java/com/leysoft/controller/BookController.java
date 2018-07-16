@@ -89,4 +89,13 @@ public class BookController {
         Book newBook = bookService.save(book);
         return ResponseEntity.ok(newBook);
     }
+
+    @GetMapping(
+            value = {
+                "/custom/name/{name}"
+            })
+    public ResponseEntity<String> getNameByName(@PathVariable(
+            name = "name") String name) {
+        return ResponseEntity.ok(bookService.findByNameSourceName(name));
+    }
 }
