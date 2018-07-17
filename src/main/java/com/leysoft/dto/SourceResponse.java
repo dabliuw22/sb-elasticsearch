@@ -1,34 +1,35 @@
+
 package com.leysoft.dto;
 
 public class SourceResponse {
-	
-	private String name;
-	
-	private Double price;
-	
-	private String type;
 
-	public String getName() {
-		return name;
-	}
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Double price;
 
-	public Double getPrice() {
-		return price;
-	}
+    private String type;
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

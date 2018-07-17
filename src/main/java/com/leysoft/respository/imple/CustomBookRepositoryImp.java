@@ -39,12 +39,12 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
                 .withQuery(matchQuery("name", name).operator(Operator.AND)).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
     }
-    
+
     @Override
     public List<Book> findByEditorialName(String name) {
-    	SearchQuery query = new NativeSearchQueryBuilder()
-    			.withQuery(matchQuery("editorial.name", name)).build();
-    	return elasticsearchTemplate.queryForList(query, Book.class);
+        SearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(matchQuery("editorial.name", name)).build();
+        return elasticsearchTemplate.queryForList(query, Book.class);
     }
 
     @Override
@@ -60,52 +60,53 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
         SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
     }
-    
+
     @Override
     public List<Book> findByPriceGteFilter(Double price) {
-    	QueryBuilder filterQuery = rangeQuery("price").gte(price);
-    	SearchQuery query = new NativeSearchQueryBuilder().withQuery(boolQuery().filter(filterQuery)).build();
-    	return elasticsearchTemplate.queryForList(query, Book.class);
+        QueryBuilder filterQuery = rangeQuery("price").gte(price);
+        SearchQuery query =
+                new NativeSearchQueryBuilder().withQuery(boolQuery().filter(filterQuery)).build();
+        return elasticsearchTemplate.queryForList(query, Book.class);
     }
 
     @Override
     public List<String> findByNameSourceName(String field, String name) {
-    	SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(field).build();
+        SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(field).build();
         SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery(field, name))
                 .withSourceFilter(sourceFilter).build();
         return getResultBySource(field, query);
     }
-    
+
     @Override
     public List<SourceResponse> findByNameSourceFields(String name, String... fields) {
-    	SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(fields).build();
-    	SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery("name", name))
-    			.withSourceFilter(sourceFilter).build();
-    	return getResultBySource(query, fields);
+        SourceFilter sourceFilter = new FetchSourceFilterBuilder().withIncludes(fields).build();
+        SearchQuery query = new NativeSearchQueryBuilder().withQuery(matchQuery("name", name))
+                .withSourceFilter(sourceFilter).build();
+        return getResultBySource(query, fields);
     }
-    
+
     private List<String> getResultBySource(String field, SearchQuery query) {
-    	return elasticsearchTemplate.query(query, response -> {
-        	List<String> resultQuery = new ArrayList<>();
-        	SearchHits hits = response.getHits();
-        	hits.forEach(hit -> resultQuery.add((String) hit.getSource().get(field)));
-        	return resultQuery;
+        return elasticsearchTemplate.query(query, response -> {
+            List<String> resultQuery = new ArrayList<>();
+            SearchHits hits = response.getHits();
+            hits.forEach(hit -> resultQuery.add((String) hit.getSource().get(field)));
+            return resultQuery;
         });
     }
-    
+
     private List<SourceResponse> getResultBySource(SearchQuery query, String... fields) {
-    	return elasticsearchTemplate.query(query, response -> {
-    		List<SourceResponse> resultQuery = new ArrayList<>();
-    		SearchHits hits = response.getHits();
-    		hits.forEach(hit -> {
-    			SourceResponse sourceResponse = new SourceResponse();
-    			Map<String, Object> map = hit.getSource();
-    			sourceResponse.setName((String) map.get(fields[0]));
-    			sourceResponse.setPrice((Double) map.get(fields[1]));
-    			sourceResponse.setType((String) map.get(fields[2]));
-    			resultQuery.add(sourceResponse);
-    		});
-    		return resultQuery;
-    	});
+        return elasticsearchTemplate.query(query, response -> {
+            List<SourceResponse> resultQuery = new ArrayList<>();
+            SearchHits hits = response.getHits();
+            hits.forEach(hit -> {
+                SourceResponse sourceResponse = new SourceResponse();
+                Map<String, Object> map = hit.getSource();
+                sourceResponse.setName((String) map.get(fields[0]));
+                sourceResponse.setPrice((Double) map.get(fields[1]));
+                sourceResponse.setType((String) map.get(fields[2]));
+                resultQuery.add(sourceResponse);
+            });
+            return resultQuery;
+        });
     }
 }

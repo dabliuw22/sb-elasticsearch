@@ -42,10 +42,10 @@ public class BookServiceImp implements BookService {
     public List<Book> findByName(String name) {
         return bookRepository.findByNameCustom(name);
     }
-    
+
     @Override
     public List<Book> findByEditorialName(String name) {
-    	return bookRepository.findByEditorialName(name);
+        return bookRepository.findByEditorialName(name);
     }
 
     @Override
@@ -63,20 +63,20 @@ public class BookServiceImp implements BookService {
     public List<Book> findByPriceAndDescription(Double price, String description) {
         return bookRepository.findByPriceAndDescription(price, description);
     }
-    
+
     @Override
     public List<Book> findByPriceGteFilter(Double price) {
-    	return customBookRepository.findByPriceGteFilter(price);
+        return customBookRepository.findByPriceGteFilter(price);
     }
 
     @Override
     public List<String> findByNameSourceName(String field, String name) {
         return customBookRepository.findByNameSourceName(field, name);
     }
-    
+
     @Override
     public List<SourceResponse> findByNameSourceFields(String name, String... fields) {
-    	return customBookRepository.findByNameSourceFields(name, fields);
+        return customBookRepository.findByNameSourceFields(name, fields);
     }
 
     @Override

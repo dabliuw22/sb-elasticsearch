@@ -16,7 +16,7 @@ public interface BookService {
     public List<Book> findAll();
 
     public List<Book> findByName(String name);
-    
+
     public List<Book> findByEditorialName(String name);
 
     public List<Book> findByAuthorName(String authorName);
@@ -24,11 +24,11 @@ public interface BookService {
     public List<Book> findByPublishedBetween(Date gte, Date lte);
 
     public List<Book> findByPriceAndDescription(Double price, String description);
-    
+
     public List<Book> findByPriceGteFilter(Double price);
 
     public List<String> findByNameSourceName(String field, String name);
-    
+
     public List<SourceResponse> findByNameSourceFields(String name, String... fields);
 
     public boolean update(Book book);
