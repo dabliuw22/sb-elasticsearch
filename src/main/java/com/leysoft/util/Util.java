@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 
 public class Util {
 
@@ -19,6 +20,12 @@ public class Util {
     public static <T> List<T> iterableToList(Iterable<T> iterable) {
         List<T> list = new ArrayList<>();
         iterable.forEach(list::add);
+        return list;
+    }
+    
+    public static <T> List<T> pageToList(Page<T> page) {
+        List<T> list = new ArrayList<>();
+        page.forEach(list::add);
         return list;
     }
 

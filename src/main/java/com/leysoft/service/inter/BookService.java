@@ -4,6 +4,8 @@ package com.leysoft.service.inter;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.leysoft.document.Book;
 import com.leysoft.dto.SourceResponse;
 
@@ -20,6 +22,8 @@ public interface BookService {
     public List<Book> findByEditorialName(String name);
 
     public List<Book> findByAuthorName(String authorName);
+    
+    public List<Book> findByAuthorName(String name, Pageable pageable);
 
     public List<Book> findByPublishedBetween(Date gte, Date lte);
 

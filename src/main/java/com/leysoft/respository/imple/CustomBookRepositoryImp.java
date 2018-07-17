@@ -16,6 +16,8 @@ import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilterBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -53,6 +55,15 @@ public class CustomBookRepositoryImp implements CustomBookRepository {
                 boolQuery().must(matchQuery("authors.name", name)), ScoreMode.Avg);
         SearchQuery query = new NativeSearchQueryBuilder().withQuery(nestedQuery).build();
         return elasticsearchTemplate.queryForList(query, Book.class);
+    }
+    
+    @Override
+    public Page<Book> findByAuthorName(String name, Pageable pageable) {
+    	QueryBuilder nestedQuery = nestedQuery("authors",
+                boolQuery().must(matchQuery("authors.name", name)), ScoreMode.Avg);
+    	SearchQuery query = new NativeSearchQueryBuilder().withQuery(nestedQuery)
+    			.withPageable(pageable).build();
+    	return elasticsearchTemplate.queryForPage(query, Book.class);
     }
 
     @Override

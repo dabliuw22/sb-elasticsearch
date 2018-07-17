@@ -4,6 +4,7 @@ package com.leysoft.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leysoft.document.Book;
 import com.leysoft.dto.DateBetweenRequest;
+import com.leysoft.dto.LimitsRequest;
 import com.leysoft.dto.PriceAndDescriptionRequest;
 import com.leysoft.dto.SourceResponse;
 import com.leysoft.service.inter.BookService;
@@ -54,6 +56,16 @@ public class BookController {
     public ResponseEntity<List<Book>> allByAuthor(@PathVariable(
             name = "name") String name) {
         return ResponseEntity.ok(bookService.findByAuthorName(name));
+    }
+    
+    @PostMapping(
+            value = {
+                "/author/{name}"
+            })
+    public ResponseEntity<List<Book>> allByAuthorPage(@PathVariable(
+            name = "name") String name, @RequestBody LimitsRequest limits) {
+        return ResponseEntity.ok(bookService
+        		.findByAuthorName(name, PageRequest.of(limits.getInferior(), limits.getSuperior())));
     }
 
     @PostMapping(

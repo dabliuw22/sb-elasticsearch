@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.leysoft.document.Book;
@@ -51,6 +53,12 @@ public class BookServiceImp implements BookService {
     @Override
     public List<Book> findByAuthorName(String authorName) {
         return bookRepository.findByAuthorName(authorName);
+    }
+    
+    @Override
+    public List<Book> findByAuthorName(String name, Pageable pageable) {
+    	Page<Book> page = customBookRepository.findByAuthorName(name, pageable);
+    	return Util.pageToList(page);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.leysoft.respository.inter;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchCrudRepository;
 
@@ -27,6 +29,11 @@ public interface BookRepository extends ElasticsearchCrudRepository<Book, String
                     + "{\"must\": [{\"match\": {\"authors.name\": \"?0\"}}]}}}}")
     public List<Book> findByAuthorName(String name);
 
+    @Query(
+            value = "{\"nested\": {\"path\": \"authors\", \"query\": {\"bool\": "
+                    + "{\"must\": [{\"match\": {\"authors.name\": \"?0\"}}]}}}}")
+    public Page<Book> findByAuthorName(String name, Pageable pageable);
+    
     @Query(
             value = "{\"range\": {\"published\": {\"gte\": \"?0\",\"lte\": \"?1\"}}}")
     public List<Book> findByPublishedBetween(String gte, String lte);
